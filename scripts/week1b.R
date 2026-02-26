@@ -1,45 +1,19 @@
-data("AirPassengers")
+library(ggplot2)
 
-?AirPassengers
-class(AirPassengers)
-View(AirPassengers)
+# Load dataset
+data("airquality")
 
-ap_df <- data.frame(
-  year <- time(AirPassengers),
-  passengers = as.numeric(AirPassengers)
-)
-ap_df
+# Remove NA values
+df <- na.omit(airquality)
 
-ap_df_months <- data.frame(
-  year = floor(time(AirPassengers)),
-  month = cycle(time(AirPassengers)),
-  passengers = as.numeric(AirPassengers)
-)
-ap_df_months
+# Histogram of Daily Maximum Temperature (La Guardia Airport)
 
-plot(AirPassengers)
+p1 <- ggplot(df, aes(x = Temp)) +
+  geom_histogram(binwidth = 5, fill = "steelblue", color = "black") +
+  labs(title = "Histogram of Daily Maximum Temperature\n(La Guardia Airport, 1973)",
+       x = "Temperature (°F)",
+       y = "Frequency") +
+  theme_minimal()
 
-
-plot(AirPassengers,
-     type = 'l',
-     main = "Airpassengers Trend Analysis",
-     xlab = "Months",
-     ylab = "No.of Passengers",
-     col = "red"
-     )
-plot(AirPassengers,
-     type = 'l',
-     lwd = 1.5,
-     main = "Airpassengers Trend Analysis",
-     xlab = "Months",
-     ylab = "No.of Passengers",
-     col = "red"
-)
-points(AirPassengers,
-       type = 'o',
-       pch = 10,
-       col = "blue")
-grid()
-
-
+p1
 
